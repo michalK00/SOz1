@@ -1,3 +1,5 @@
+package zad1;
+
 import java.util.ArrayList;
 
 public class main {
@@ -42,7 +44,7 @@ public class main {
             fcfsWaitingTime.add(p.getWaitingTime());
         }
 
-        utilities.createOutputChart(fcfsWaitingTime,"FCFS waiting time",  "Process Number", "Waiting Time", dataSetName);
+        utilities.createOutputChart(fcfsWaitingTime,"FCFS waiting time",  "zad1.Process Number", "Waiting Time", dataSetName);
 
         utilities.resetList(dataSet1);
 
@@ -53,7 +55,7 @@ public class main {
             sjfWaitingTime.add(p.getWaitingTime());
         }
 
-        utilities.createOutputChart(sjfWaitingTime,"SJF waiting time", "Process Number", "Waiting Time",dataSetName);
+        utilities.createOutputChart(sjfWaitingTime,"SJF waiting time", "zad1.Process Number", "Waiting Time",dataSetName);
 
         utilities.resetList(dataSet1);
 
@@ -67,8 +69,8 @@ public class main {
         for (Process p:rrList) {
             rrServiceTime.add(p.getCompletionTime()-p.getArrivalTime());
         }
-        utilities.createOutputChart(rrWaitingTime,"RR waiting time until first service", "Process Number", "Waiting Time",dataSetName);
-        utilities.createOutputChart(rrServiceTime,"RR process completion time from arrival until fully completed", "Process Number", "Completion Time",dataSetName);
+        utilities.createOutputChart(rrWaitingTime,"RR waiting time until first service", "zad1.Process Number", "Waiting Time",dataSetName);
+        utilities.createOutputChart(rrServiceTime,"RR process completion time from arrival until fully completed", "zad1.Process Number", "Completion Time",dataSetName);
 
         utilities.resetList(dataSet1);
 

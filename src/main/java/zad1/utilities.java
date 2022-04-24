@@ -1,3 +1,5 @@
+package zad1;
+
 import org.apache.commons.math3.distribution.BetaDistribution;
 import org.apache.commons.math3.random.AbstractRandomGenerator;
 import org.knowm.xchart.*;

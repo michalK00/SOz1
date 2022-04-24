@@ -1,3 +1,5 @@
+package zad1;
+
 public class Process{
 
     private int arrivalTime;
@@ -77,7 +79,7 @@ public class Process{
 
     @Override
     public String toString() {
-        return "Process{" +
+        return "zad1.Process{" +
                 "arrivalTime=" + arrivalTime +
                 ", processingTime=" + processingTime +
                 ", progress=" + progress +
