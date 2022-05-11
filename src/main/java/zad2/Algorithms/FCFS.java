@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class FCFS implements AlgorithmInterface{
 
+    int totalNumberOfHeadPasses = 0;
+
     @Override
     public ArrayList<Request> simulate(ArrayList<Request> list) {
 
@@ -30,7 +32,7 @@ public class FCFS implements AlgorithmInterface{
                 //dodajemy do done i usuwamy z queue
                 done.add(queue.get(0));
                 queue.remove(0);
-
+                totalNumberOfHeadPasses += addedTime;
             }else{
                 addedTime = 1;
             }
@@ -51,5 +53,7 @@ public class FCFS implements AlgorithmInterface{
         return done;
     }
 
-
+    public int getTotalNumberOfHeadPasses() {
+        return totalNumberOfHeadPasses;
+    }
 }

@@ -2,7 +2,6 @@ package zad2;
 
 import org.apache.commons.math3.distribution.BetaDistribution;
 import org.apache.commons.math3.random.AbstractRandomGenerator;
-import zad1.Process;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,6 +11,7 @@ public class Disc {
     private int size;
     private int maxArrivalTime;
     private int numberOfRequests;
+    private int maxDeadline;
     private ArrayList<Request> queue = new ArrayList<>();
 
 
@@ -19,14 +19,25 @@ public class Disc {
         this.size = size;
         this.maxArrivalTime = maxArrivalTime;
         this.numberOfRequests = numberOfRequests;
+        maxDeadline = -1;
         initialize(typeOfRequestArrangement);
     }
     public Disc(int size, int maxArrivalTime, int numberOfRequests, int alpha, int beta) {
         this.size = size;
         this.maxArrivalTime = maxArrivalTime;
         this.numberOfRequests = numberOfRequests;
+        maxDeadline = -1;
         initialize(alpha, beta);
     }
+    public Disc(int size, int maxArrivalTime, int numberOfRequests, int alpha, int beta, int maxDeadline) {
+        this.size = size;
+        this.maxArrivalTime = maxArrivalTime;
+        this.numberOfRequests = numberOfRequests;
+        this.maxDeadline = maxDeadline;
+        initialize(alpha, beta);
+    }
+
+
 
 
     private void initialize(String typeOfRequestArrangement){
@@ -41,28 +52,23 @@ public class Disc {
     }
 
 
+
     private void generateClusterTypeQueue(){
 
     }
     private void generateBetaDistribution(int alpha, int beta){
-        BetaDistribution betaDistribution = new BetaDistribution(new AbstractRandomGenerator() {
-            Random r = new Random();
-            @Override
-            public void setSeed(long l) {
-                r.setSeed(l);
-            }
 
-            @Override
-            public double nextDouble() {
-                return r.nextDouble();
-            }
-        },alpha,beta );
         Random rand = new Random();
 
         for (int x = 0; x<numberOfRequests;x++){
-            int address = (int) (Math.round(betaDistribution.sample()*(size-1))+1);
+
+            int address = (int) (Math.round(betaDistribution(alpha, beta)*(size-1))+1);
             int arrivalTime = rand.nextInt(maxArrivalTime-1)+1;
-            queue.add(new Request(arrivalTime, address));
+            if(maxDeadline != -1){
+                int deadline = (int) (Math.round(betaDistribution(alpha, beta)*(maxDeadline-1))+1);
+                queue.add(new Request(arrivalTime, address, deadline));
+            } else
+                queue.add(new Request(arrivalTime, address));
         }
         sortQueue();
     }
@@ -90,15 +96,38 @@ public class Disc {
     public int getSize() {
         return size;
     }
+
     public ArrayList<Request> getQueue() {
         return queue;
     }
+
+
+
     public void resetList(){
         for (Request r: queue) {
             r.setServed(false);
             r.setWaitingTime(0);
             r.setCompletionTime(0);
+            if(r.isRealTimeRequest()){
+                r.setDeadline(r.getInitialDeadline());
+                r.setFailed(false);
+            }
         }
+    }
+    private double betaDistribution(int alpha, int beta){
+        BetaDistribution betaDistribution = new BetaDistribution(new AbstractRandomGenerator() {
+            Random r = new Random();
+            @Override
+            public void setSeed(long l) {
+                r.setSeed(l);
+            }
+
+            @Override
+            public double nextDouble() {
+                return r.nextDouble();
+            }
+        },alpha,beta );
+        return betaDistribution.sample();
     }
 
 

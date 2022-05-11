@@ -6,6 +6,8 @@ import java.util.Comparator;
 
 public class SCAN implements AlgorithmInterface{
 
+    int totalNumberOfHeadPasses = 0;
+
     @Override
     public ArrayList<Request> simulate(ArrayList<Request> list) {
         ArrayList<Request> queue = new ArrayList<>();
@@ -28,7 +30,7 @@ public class SCAN implements AlgorithmInterface{
                             break;
                         }
 
-                    } else if(!goingRight){
+                    } else {
                         if(queue.get(x).getAddress()<=currentPosition){
                             temp = x;
                             break;
@@ -52,6 +54,7 @@ public class SCAN implements AlgorithmInterface{
                     //dodajemy do done i usuwamy z queue
                     done.add(queue.get(temp));
                     queue.remove(temp);
+                    totalNumberOfHeadPasses += addedTime;
                 }
 
 
@@ -95,4 +98,8 @@ public class SCAN implements AlgorithmInterface{
         return done;
     }
 
+    @Override
+    public int getTotalNumberOfHeadPasses() {
+        return totalNumberOfHeadPasses;
+    }
 }

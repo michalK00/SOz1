@@ -8,6 +8,8 @@ import java.util.Comparator;
 
 public class CSCAN implements AlgorithmInterface{
 
+    int totalNumberOfHeadPasses = 0;
+
     @Override
     public ArrayList<Request> simulate(ArrayList<Request> list) {
         ArrayList<Request> queue = new ArrayList<>();
@@ -45,6 +47,7 @@ public class CSCAN implements AlgorithmInterface{
                     //dodajemy do done i usuwamy z queue
                     done.add(queue.get(temp));
                     queue.remove(temp);
+                    totalNumberOfHeadPasses += addedTime;
                 }
 
 
@@ -86,5 +89,10 @@ public class CSCAN implements AlgorithmInterface{
         }
 
         return done;
+    }
+
+    @Override
+    public int getTotalNumberOfHeadPasses() {
+        return totalNumberOfHeadPasses;
     }
 }

@@ -9,6 +9,8 @@ import java.util.Comparator;
 
 public class SSTF implements AlgorithmInterface{
 
+    int totalNumberOfHeadPasses = 0;
+
     @Override
     public ArrayList<Request> simulate(ArrayList<Request> list) {
         ArrayList<Request> queue = new ArrayList<>();
@@ -31,6 +33,7 @@ public class SSTF implements AlgorithmInterface{
                 //dodajemy do done i usuwamy z queue
                 done.add(queue.get(0));
                 queue.remove(0);
+                totalNumberOfHeadPasses += addedTime;
 
             } else {
                 addedTime = 1;
@@ -69,4 +72,8 @@ public class SSTF implements AlgorithmInterface{
         return done;
     }
 
+    @Override
+    public int getTotalNumberOfHeadPasses() {
+        return totalNumberOfHeadPasses;
+    }
 }
