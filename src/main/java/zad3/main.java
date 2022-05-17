@@ -9,9 +9,9 @@ public class main {
         Utils utils = new Utils();
         Generator generator = new Generator();
         int numberOfFrames = 4;
-        //int[] tab = generator.generateSequenceOfAppeals(15000, 1000, 100, 60, 1000);
+        int[] tab = generator.generateSequenceOfAppeals(100, 100, 10);
         //int[] tab = {1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5};
-        int[] tab = {1, 2, 3, 4, 1, 2, 5, 3, 2, 1, 4, 5};
+        //int[] tab = {1, 2, 3, 4, 1, 2, 5, 3, 2, 1, 4, 5};
 
         for(int x = 0; x<tab.length; x++){
             System.out.print(tab[x] + " ");

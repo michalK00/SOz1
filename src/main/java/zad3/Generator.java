@@ -6,27 +6,43 @@ public class Generator {
 
     Random random = new Random();
 
-    public int[] generateSequenceOfAppeals(int n, int maxIndex, int numberOfFrames, int minLengthForSingleSequence,int maxLengthForSingleSequence){
+    public int[] generateSequenceOfAppeals(int n, int maxIndex, int numberOfIntervals){
 
         int[] tab = new int[n];
         int generatedValues = 0;
+        boolean generatingLocalAppeals = false;
 
         while(generatedValues<=n){
+            if(generatingLocalAppeals){
+                int index = random.nextInt(maxIndex-1)+1;
+                int lowEnd = Math.max(index - maxIndex/numberOfIntervals, 0);
+                int highEnd = Math.min(index + maxIndex/numberOfIntervals, maxIndex);
 
-            int index = random.nextInt(maxIndex+1)-1;
-            int lowEnd = Math.max(index - maxIndex/numberOfFrames, 0);
-            int highEnd = Math.min(index + maxIndex/numberOfFrames, maxIndex);
+                int sequenceLength = random.nextInt((int) (0.5*n));
+                for(int x = 0; x<sequenceLength; x++){
+                    if(generatedValues >= n){
+                        return tab;
+                    }
+                    int generatedValue = random.nextInt(highEnd - lowEnd) + lowEnd;
+                    tab[generatedValues] = generatedValue;
+                    generatedValues++;
+                }
 
-            int howManyValues = random.nextInt(maxLengthForSingleSequence+minLengthForSingleSequence)-minLengthForSingleSequence;
+                generatingLocalAppeals = false;
 
-            for(int x = 0; x < howManyValues; x++){
+            } else {
                 if(generatedValues >= n){
                     return tab;
                 }
-                int generatedValue = random.nextInt(highEnd - lowEnd) + lowEnd;
+                int generatedValue = random.nextInt(maxIndex-1)+1;
                 tab[generatedValues] = generatedValue;
                 generatedValues++;
+                if(random.nextInt(400)<20){
+                    generatingLocalAppeals = true;
+                }
             }
+
+
 
 
 
