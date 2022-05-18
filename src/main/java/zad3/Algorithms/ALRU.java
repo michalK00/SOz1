@@ -3,13 +3,12 @@ package zad3.Algorithms;
 import zad3.DataStructures.AppealQueue;
 import zad3.Frame;
 
-public class ALRU extends Algorithm{
+public class ALRU extends Algorithm implements AlgorithmInterface{
 
     public ALRU(int numberOfFrames, int[] sequenceOfAppeals) {
         super(numberOfFrames, sequenceOfAppeals);
     }
 
-    @Override
     public void simulate() {
         AppealQueue appealQueue = new AppealQueue(getFramesTab().length);
         int time = 0;
@@ -28,10 +27,10 @@ public class ALRU extends Algorithm{
                     }
                 }
             } else if(!appealIsInMemory(nextAppeal)){
-                boolean addedNewApealToQueue = false;
+                boolean addedNewAppealToQueue = false;
                 int prevAppealValue = -1;
 
-                while(!addedNewApealToQueue){
+                while(!addedNewAppealToQueue){
                     if(appealQueue.getBit(0)){
                         AppealQueue.Appeal a = appealQueue.getAppeal(0);
                         appealQueue.dequeue();
@@ -41,7 +40,7 @@ public class ALRU extends Algorithm{
                         prevAppealValue = appealQueue.getValue(0);
                         appealQueue.dequeue();
                         appealQueue.add(nextAppeal);
-                        addedNewApealToQueue = true;
+                        addedNewAppealToQueue = true;
                     }
                 }
 

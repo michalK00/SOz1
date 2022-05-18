@@ -2,7 +2,7 @@ package zad3.Algorithms;
 
 import zad3.Frame;
 
-public class LRU extends Algorithm{
+public class LRU extends Algorithm implements AlgorithmInterface{
 
     public LRU(int numberOfFrames, int[] sequenceOfAppeals) {
 
@@ -10,7 +10,6 @@ public class LRU extends Algorithm{
 
     }
 
-    @Override
     public void simulate() {
 
         int time = 0;

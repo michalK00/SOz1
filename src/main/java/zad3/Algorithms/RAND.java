@@ -4,7 +4,7 @@ import zad3.Frame;
 
 import java.util.Random;
 
-public class RAND extends Algorithm {
+public class RAND extends Algorithm implements AlgorithmInterface{
 
     public RAND(int numberOfFrames, int[] sequenceOfAppeals) {
 
@@ -12,7 +12,6 @@ public class RAND extends Algorithm {
 
     }
 
-    @Override
     public void simulate() {
         int time = 0;
         Random random = new Random();
@@ -27,6 +26,8 @@ public class RAND extends Algorithm {
                         break;
                     }
                 }
+            } else if(appealIsInMemory(nextAppeal)){
+
             } else {
                 int index = random.nextInt(getFramesTab().length);
                 if(getFramesTab()[index].getCurrentAppeal() != nextAppeal){

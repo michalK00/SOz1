@@ -8,34 +8,39 @@ public class main {
 
         Utils utils = new Utils();
         Generator generator = new Generator();
-        int numberOfFrames = 4;
-        int[] tab = generator.generateSequenceOfAppeals(100, 100, 10);
+        int numberOfFrames = 110;
+        int[] tab = generator.generateSequenceOfAppeals(1000, 10, 10, 0.6);
         //int[] tab = {1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5};
         //int[] tab = {1, 2, 3, 4, 1, 2, 5, 3, 2, 1, 4, 5};
 
-        for(int x = 0; x<tab.length; x++){
-            System.out.print(tab[x] + " ");
-        }
-        System.out.println();
+//        for(int x = 0; x<tab.length; x++){
+//            System.out.print(tab[x] + " ");
+//        }
+//        System.out.println();
 
         Algorithm fifo = new FIFO(numberOfFrames, tab);
-        fifo.simulate();
+        ((FIFO) fifo).simulate();
+        System.out.println("-----FIFO-----");
         utils.printStats(fifo);
 
         Algorithm opt = new OPT(numberOfFrames, tab);
-        opt.simulate();
+        ((OPT) opt).simulate();
+        System.out.println("-----OPT-----");
         utils.printStats(opt);
 
         Algorithm lru = new LRU(numberOfFrames, tab);
-        lru.simulate();
+        ((LRU) lru).simulate();
+        System.out.println("-----LRU-----");
         utils.printStats(lru);
 
         Algorithm alru = new ALRU(numberOfFrames, tab);
-        alru.simulate();
+        ((ALRU) alru).simulate();
+        System.out.println("-----ALRU-----");
         utils.printStats(alru);
 
         Algorithm rand = new RAND(numberOfFrames, tab);
-        rand.simulate();
+        ((RAND) rand).simulate();
+        System.out.println("-----RAND-----");
         utils.printStats(rand);
 
 

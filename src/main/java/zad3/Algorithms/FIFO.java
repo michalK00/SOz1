@@ -2,7 +2,7 @@ package zad3.Algorithms;
 
 import zad3.Frame;
 
-public class FIFO extends Algorithm{
+public class FIFO extends Algorithm implements AlgorithmInterface{
 
 
     public FIFO(int numberOfFrames, int[] sequenceOfAppeals) {
@@ -11,7 +11,6 @@ public class FIFO extends Algorithm{
 
     }
 
-    @Override
     public void simulate() {
 
         int time = 0;

@@ -2,7 +2,7 @@ package zad3.Algorithms;
 
 import zad3.Frame;
 
-public class OPT extends Algorithm{
+public class OPT extends Algorithm implements AlgorithmInterface{
 
     public OPT(int numberOfFrames, int[] sequenceOfAppeals) {
 
@@ -10,7 +10,6 @@ public class OPT extends Algorithm{
 
     }
 
-    @Override
     public void simulate(){
         int time = 0;
 

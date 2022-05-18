@@ -6,7 +6,7 @@ public class Generator {
 
     Random random = new Random();
 
-    public int[] generateSequenceOfAppeals(int n, int maxIndex, int numberOfIntervals){
+    public int[] generateSequenceOfAppeals(int n, int maxIndex, int numberOfIntervals, double parameterForMaximalLocalSequenceLengthComparedToFullLength){
 
         int[] tab = new int[n];
         int generatedValues = 0;
@@ -18,7 +18,7 @@ public class Generator {
                 int lowEnd = Math.max(index - maxIndex/numberOfIntervals, 0);
                 int highEnd = Math.min(index + maxIndex/numberOfIntervals, maxIndex);
 
-                int sequenceLength = random.nextInt((int) (0.5*n));
+                int sequenceLength = random.nextInt((int) (parameterForMaximalLocalSequenceLengthComparedToFullLength*n));
                 for(int x = 0; x<sequenceLength; x++){
                     if(generatedValues >= n){
                         return tab;
@@ -37,7 +37,7 @@ public class Generator {
                 int generatedValue = random.nextInt(maxIndex-1)+1;
                 tab[generatedValues] = generatedValue;
                 generatedValues++;
-                if(random.nextInt(400)<20){
+                if(random.nextInt(100)<5){
                     generatingLocalAppeals = true;
                 }
             }

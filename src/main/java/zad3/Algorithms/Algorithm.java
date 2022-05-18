@@ -20,9 +20,6 @@ public abstract class Algorithm{
 
     }
 
-    public void simulate(){};
-
-
     public Frame[] getFramesTab() {
         return framesTab;
     }
