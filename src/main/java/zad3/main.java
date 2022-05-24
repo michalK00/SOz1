@@ -8,8 +8,8 @@ public class main {
 
         Utils utils = new Utils();
         Generator generator = new Generator();
-        int numberOfFrames = 110;
-        int[] tab = generator.generateSequenceOfAppeals(1000, 10, 10, 0.6);
+        int numberOfFrames = 15;
+        int[] tab = generator.generateSequenceOfAppeals(1000, 100, 10, 0.6);
         //int[] tab = {1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5};
         //int[] tab = {1, 2, 3, 4, 1, 2, 5, 3, 2, 1, 4, 5};
 
