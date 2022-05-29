@@ -21,12 +21,12 @@ public class Utils {
         return processesTable;
     }
 
-    public List<Integer> generateSequenceOfProcesses(int numberOfProcesses, int numberOfAppeals){
+    public ArrayDeque<Integer> generateSequenceOfProcesses(int numberOfProcesses, int numberOfAppeals){
 
         Random random = new Random();
 
         int[] processCounter = new int[numberOfProcesses];
-        List<Integer> generatedSequenceOfProcesses = new ArrayList<>();
+        ArrayDeque<Integer> generatedSequenceOfProcesses = new ArrayDeque<>();
         List<Integer> possibleProcessList = new ArrayList<>();
 
         //tables and lists initialization
@@ -49,5 +49,14 @@ public class Utils {
 
 
         return generatedSequenceOfProcesses;
+    }
+
+    public ArrayDeque[] copyArrayDeque(ArrayDeque[] processesTable){
+        ArrayDeque<Integer>[] copiedArray = new ArrayDeque[processesTable.length];
+
+        for(int x = 0; x < processesTable.length; x++){
+            copiedArray[x] = processesTable[x].clone();
+        }
+        return copiedArray;
     }
 }

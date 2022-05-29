@@ -27,11 +27,10 @@ public class Generator {
                 int sequenceLength = random.nextInt((int) (parameterForMaximalLocalSequenceLengthComparedToFullLength*n));
                 for(int x = 0; x<sequenceLength; x++){
                     if(generatedValues >= n){
-                        queue.push(-1);
                         return queue;
                     }
                     int generatedValue = random.nextInt(highEnd - lowEnd) + lowEnd;
-                    queue.push(generatedValue);
+                    queue.add(generatedValue);
                     generatedValues++;
                 }
 
@@ -39,11 +38,10 @@ public class Generator {
 
             } else {
                 if(generatedValues >= n){
-                    queue.push(-1);
                     return queue;
                 }
                 int generatedValue = random.nextInt(maxIndex - minIndex - 1) + 1 + minIndex;
-                queue.push(generatedValue);
+                queue.add(generatedValue);
                 generatedValues++;
                 if(random.nextInt(100)<5){
                     generatingLocalAppeals = true;
