@@ -4,7 +4,6 @@ package zad4.Algorithms;
 import zad4.Frame;
 
 import java.util.ArrayDeque;
-import java.util.List;
 
 public abstract class Algorithm{
 
@@ -12,6 +11,7 @@ public abstract class Algorithm{
     private int numberOfPageErrors;
     private ArrayDeque<Integer>[] processesTable;
     private ArrayDeque<Integer> generatedSequenceOfProcesses;
+    protected int[] numberOfPageErrorsForEachProcess;
 
     public Algorithm(int numberOfFrames, ArrayDeque<Integer>[] processesTable, ArrayDeque<Integer> generatedSequenceOfProcesses) {
 
@@ -22,6 +22,7 @@ public abstract class Algorithm{
         numberOfPageErrors = 0;
         this.processesTable = processesTable;
         this.generatedSequenceOfProcesses = generatedSequenceOfProcesses;
+        numberOfPageErrorsForEachProcess = new int[getProcessesTable().length];
 
     }
 
@@ -65,6 +66,14 @@ public abstract class Algorithm{
         this.generatedSequenceOfProcesses = generatedSequenceOfProcesses;
     }
 
+    public int[] getNumberOfPageErrorsForEachProcess() {
+        return numberOfPageErrorsForEachProcess;
+    }
+
+    public void setNumberOfPageErrorsForEachProcess(int[] numberOfPageErrorsForEachProcess) {
+        this.numberOfPageErrorsForEachProcess = numberOfPageErrorsForEachProcess;
+    }
+
     protected void incrementNumberOfPageErrors() {
         setNumberOfPageErrors(getNumberOfPageErrors()+1);
     }
@@ -79,7 +88,7 @@ public abstract class Algorithm{
 
     protected boolean atLeastOnePageIsEmpty(){
         for(int x = 0; x < framesTab.length; x++){
-            if(framesTab[x].getCurrentAppeal() == -1){
+            if(framesTab[x].getCurrentProcess() == -1){
                 return true;
             }
         }
@@ -100,11 +109,19 @@ public abstract class Algorithm{
         int longestTimeInMemory = 0;
         int frameIndex = -1;
         for (int x = 0; x < getFramesTab().length; x++) {
-            if(getFramesTab()[x].getCurrentProcess() == currentProcess && getFramesTab()[x].getCurrentAppeal() != -1 && getFramesTab()[x].getCounter() > longestTimeInMemory){
+            if(getFramesTab()[x].getCurrentProcess() == currentProcess && getFramesTab()[x].getCounter() > longestTimeInMemory){
                 longestTimeInMemory = getFramesTab()[x].getCounter();
                 frameIndex = x;
             }
         }
         return frameIndex;
+    }
+
+    protected void printStats(){
+        System.out.println("Number of page errors: " + numberOfPageErrors);
+//        for(int x = 0; x < numberOfPageErrorsForEachProcess.length; x++){
+//            System.out.println("Number of page errors for process: " + x);
+//            System.out.println(numberOfPageErrorsForEachProcess[x]);
+//        }
     }
 }

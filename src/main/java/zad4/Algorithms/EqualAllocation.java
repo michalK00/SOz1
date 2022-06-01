@@ -12,10 +12,12 @@ public class EqualAllocation extends Algorithm implements AlgorithmInterface {
 
     }
 
-    public void simulate() {
+    public void simulate() throws Exception {
 
         int numberOfFramesPerProcess = getNumberOfFrames()/getNumberOfProcesses();
-
+        if(getNumberOfFrames() < getNumberOfProcesses()){
+            throw new Exception("Less than one frame for each process!");
+        }
 
         while(!getGeneratedSequenceOfProcesses().isEmpty()){
 
@@ -31,6 +33,7 @@ public class EqualAllocation extends Algorithm implements AlgorithmInterface {
                     getFramesTab()[frameIndex].setCurrentProcess(nextProcess);
                     getFramesTab()[frameIndex].setCounter(0);
                     incrementNumberOfPageErrors();
+                    numberOfPageErrorsForEachProcess[nextProcess]++;
 
                 }else {
                     for (Frame f: getFramesTab()) {
@@ -48,6 +51,7 @@ public class EqualAllocation extends Algorithm implements AlgorithmInterface {
                     for (Frame f: getFramesTab()) {
 
                         if(f.getCurrentProcess() == -1 && f.getCurrentAppeal() == -1){
+                            numberOfPageErrorsForEachProcess[nextProcess]++;
                             incrementNumberOfPageErrors();
                             f.setCurrentAppeal(nextAppeal);
                             f.setCurrentProcess(nextProcess);
@@ -77,7 +81,9 @@ public class EqualAllocation extends Algorithm implements AlgorithmInterface {
 
     }
 
-
-
-
+    @Override
+    public void stats() {
+        System.out.println("Equal Allocation: ");
+        printStats();
+    }
 }

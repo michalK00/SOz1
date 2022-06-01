@@ -7,6 +7,8 @@ import java.util.Iterator;
 
 public class ProportionalAllocation extends Algorithm implements AlgorithmInterface{
 
+
+
     public ProportionalAllocation(int numberOfFrames, ArrayDeque<Integer>[] processesTable, ArrayDeque<Integer> generatedSequenceOfProcesses) {
         super(numberOfFrames, processesTable, generatedSequenceOfProcesses);
     }
@@ -30,6 +32,7 @@ public class ProportionalAllocation extends Algorithm implements AlgorithmInterf
                     getFramesTab()[frameIndex].setCurrentProcess(nextProcess);
                     getFramesTab()[frameIndex].setCounter(0);
                     incrementNumberOfPageErrors();
+                    numberOfPageErrorsForEachProcess[nextProcess]++;
 
                 }else {
                     for (Frame f: getFramesTab()) {
@@ -47,6 +50,7 @@ public class ProportionalAllocation extends Algorithm implements AlgorithmInterf
                     for (Frame f: getFramesTab()) {
 
                         if(f.getCurrentProcess() == -1 && f.getCurrentAppeal() == -1){
+                            numberOfPageErrorsForEachProcess[nextProcess]++;
                             incrementNumberOfPageErrors();
                             f.setCurrentAppeal(nextAppeal);
                             f.setCurrentProcess(nextProcess);
@@ -103,5 +107,13 @@ public class ProportionalAllocation extends Algorithm implements AlgorithmInterf
 
 
         return framesPerProcess;
+    }
+
+
+    @Override
+    public void stats() {
+        System.out.println("Proportional Allocation: ");
+        printStats();
+
     }
 }
