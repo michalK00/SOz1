@@ -1,13 +1,11 @@
 package zad5;
 
-import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.SwingWrapper;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
-import org.knowm.xchart.style.Styler;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+
 
 public class Utils {
 
@@ -35,8 +33,6 @@ public class Utils {
 
         chart.getStyler().setZoomEnabled(true);
         chart.getStyler().setZoomResetByDoubleClick(true);
-
-        //
         chart.getStyler().setLegendVisible(true);
 
 

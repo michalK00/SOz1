@@ -11,10 +11,11 @@ public class FirstStrategy extends Algorithm implements AlgorithmInterface{
 
 
     private int cpuLoadBound;
-
-    public FirstStrategy(ArrayList<CPU> cpuList, int cpuLoadBound) {
+    private int z;
+    public FirstStrategy(ArrayList<CPU> cpuList, int cpuLoadBound, int z) {
         super(cpuList);
         this.cpuLoadBound = cpuLoadBound;
+        this.z = z;
     }
 
     @Override
@@ -35,6 +36,7 @@ public class FirstStrategy extends Algorithm implements AlgorithmInterface{
                         numberOfTimesThatProcessorsWereOverloaded++;
                     }
                     cpuList.get(cpuIndex).setCurrentLoad(cpuList.get(cpuIndex).getCurrentLoad() + processToService.getCpuLoad());
+
                 }
 
             }
@@ -65,7 +67,7 @@ public class FirstStrategy extends Algorithm implements AlgorithmInterface{
     private int findCpuToTakeTheTask(int askingProcessorNumber){
 
         for(int x = 0; x < cpuList.size(); x++){
-            if(x != askingProcessorNumber){
+            if(x != askingProcessorNumber && x < z){
                 numberOfInquiries++;
                 if(cpuList.get(x).getCurrentLoad() < cpuLoadBound){
                     numberOfPassedProcesses++;

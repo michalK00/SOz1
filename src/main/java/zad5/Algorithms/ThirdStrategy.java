@@ -7,6 +7,7 @@ import zad5.Utils;
 import java.util.ArrayList;
 
 import java.util.ListIterator;
+import java.util.Random;
 
 public class ThirdStrategy extends Algorithm implements AlgorithmInterface{
 
@@ -38,10 +39,14 @@ public class ThirdStrategy extends Algorithm implements AlgorithmInterface{
                     }
                     cpuList.get(cpuIndex).setCurrentLoad(cpuList.get(cpuIndex).getCurrentLoad() + processToService.getCpuLoad());
                 }
-                int cpuToHelpIndex = findCpuToHelp(x);
-                if(cpuToHelpIndex != -1){
-                    takeTaskFromOverloadedProcessor(x, cpuToHelpIndex);
+                if(cpuList.get(x).getCurrentLoad() < cpuLoadBound){
+                    int cpuToHelpIndex = findCpuToHelp(x);
+                    if(cpuToHelpIndex != -1){
+                        takeTaskFromOverloadedProcessor(x, cpuToHelpIndex);
+                    }
                 }
+
+
 
             }
             for(int x = 0; x < cpuList.size(); x++){
@@ -85,22 +90,35 @@ public class ThirdStrategy extends Algorithm implements AlgorithmInterface{
 
     }
     private int findCpuToHelp(int askingProcessorNumber){
-        for(int x = 0; x<cpuList.size(); x++){
+        Random random = new Random();
+
+        int a = 0;
+        while(a < cpuList.size()){
+            int x = random.nextInt(cpuList.size());
             if(x != askingProcessorNumber){
                 numberOfInquiries++;
                 if(cpuList.get(x).getCurrentLoad() > cpuLoadBound){
                     return x;
                 }
             }
+            a++;
         }
         return -1;
     }
     private void takeTaskFromOverloadedProcessor(int helpingProcIndex, int overloadedProcIndex){
         Process processToTake = findBiggestProcess(overloadedProcIndex);
+        boolean wasOverloaded = false;
+        if(cpuList.get(helpingProcIndex).getCurrentLoad() > 100){
+            wasOverloaded = true;
+        }
         cpuList.get(overloadedProcIndex).getCpuProcessListInService().remove(processToTake);
         cpuList.get(helpingProcIndex).getCpuProcessListInService().add(processToTake);
         cpuList.get(overloadedProcIndex).setCurrentLoad(cpuList.get(overloadedProcIndex).getCurrentLoad() - processToTake.getCpuLoad());
         cpuList.get(helpingProcIndex).setCurrentLoad(cpuList.get(helpingProcIndex).getCurrentLoad() + processToTake.getCpuLoad());
+        if(cpuList.get(helpingProcIndex).getCurrentLoad() > 100 && !wasOverloaded){
+            numberOfTimesThatProcessorsWereOverloaded++;
+        }
+        numberOfPassedProcesses++;
         numberOfTimesProcessorHelped++;
     }
     private Process findBiggestProcess(int procIndex){
